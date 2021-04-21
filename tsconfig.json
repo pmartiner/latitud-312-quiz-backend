@@ -1,0 +1,46 @@
+{
+    "compilerOptions": {
+      "sourceMap": true,
+      "noImplicitAny": false,
+      "module": "commonjs",
+      "target": "es5",
+      "lib": [
+        "es5",
+        "es2015",
+        "scripthost",
+        "es2017",
+        "es2016",
+        "esnext",
+        "dom",
+        "dom.iterable"
+      ],
+      "removeComments": true,
+      "allowSyntheticDefaultImports": true,
+      "allowJs": true,
+      "esModuleInterop": true,
+      "resolveJsonModule": true,
+      "moduleResolution": "node",
+      "downlevelIteration": true,
+      "forceConsistentCasingInFileNames": true,
+      "importHelpers": true,
+      "strict": true,
+      "typeRoots": ["@types"],
+      "baseUrl": ".",
+      "outDir": "./dist",
+      "paths": {
+        "routes": [
+          "routes"
+        ]
+      }
+    },
+    "include": [
+      "./",
+      "routes/**/*.ts",
+      "app.ts",
+    ],
+    "exclude": [
+        "./dist/**",
+        "node_modules",
+        "**/*.spec.ts"
+    ]
+  }
