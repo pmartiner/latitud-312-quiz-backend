@@ -1,4 +1,5 @@
-import express from 'express';
+import express, { Handler } from 'express';
+import cors from 'cors';
 
 const pingRouter = express.Router();
 
@@ -7,6 +8,6 @@ pingRouter.use(function timeLog (req, res, next) {
   next();
 });
 
-pingRouter.get('/', (req, res) => res.send('¡PONG!'));
+pingRouter.get('/', cors() as Handler, (req, res) => res.send('¡PONG!'));
 
 export default pingRouter;
