@@ -1,14 +1,52 @@
+// Bibliotecas
 import express from 'express';
 import createError from 'http-errors';
 import path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
+import cors from 'cors';
+import helmet from 'helmet';
+import dotenv from 'dotenv';
+import session, { SessionOptions } from 'express-session';
 
+dotenv.config();
 const app = express();
-const PORT = 8000;
+const PORT = process.env.PORT;
+const isProduction = process.env.NODE_ENV === 'production';
 
 // Routes
-import pingRouter from './routes/ping';
+import pingRouter from './routes/ping/ping';
+import distritosRouter from './routes/distritos/distritos';
+
+// Helmet
+app.use(helmet());
+
+// Body parser
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
+
+// CORS
+app.use(cors());
+
+// Cookies
+const sess: SessionOptions = {
+  secret: process.env.SECRET_SESSION as string,
+  cookie: {},
+  saveUninitialized: false,
+  resave: false
+};
+ 
+if (isProduction) {
+  app.set('trust proxy', 1); // trust first proxy
+  if (sess.cookie) {
+    sess.cookie.secure = true; // serve secure cookies
+  }
+}
+ 
+app.use(session(sess));
+
+// JSON parsing
+app.use(express.json());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -20,7 +58,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Routers
 app.use('/ping', pingRouter);
+app.use('/distritos', distritosRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -25,18 +25,28 @@
       "importHelpers": true,
       "strict": true,
       "typeRoots": ["@types"],
-      "baseUrl": ".",
+      "baseUrl": "./",
       "outDir": "./dist",
       "paths": {
-        "routes": [
-          "routes"
+        "common/*": [
+          "common/*"
+        ],
+        "routes/*": [
+          "routes/*"
+        ],
+        "types/*": [
+          "routes/distritos/types/*"
+        ],
+        "views/*": [
+          "views/*"
         ]
       }
     },
     "include": [
-      "./",
+      "./*",
       "routes/**/*.ts",
       "app.ts",
+      "routes/**/*",
     ],
     "exclude": [
         "./dist/**",
