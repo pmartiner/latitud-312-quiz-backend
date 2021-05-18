@@ -13,13 +13,13 @@ dotenv.config();
 
 const connectionString = `postgresql://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_DATABASE}`;
 const isProduction = process.env.NODE_ENV === 'production';
-const isTesting = process.env.TESTING === 'test';
+const isDebugging = process.env.DEBUG === 'true';
 const distritosRouter = express.Router();
 const pgp = pgpInit();
 const db = pgp(isProduction ? process.env.DATABASE_URL as string : connectionString);
 const accessList = ['https://latitud312.com/', 'https://latitud312-quiz.vercel.app/'];
 const corsOptions = {
-  origin: isProduction && isTesting
+  origin: isProduction && isDebugging
     ? function (origin, callback) {
       if (accessList.indexOf(origin) !== -1) {
         callback(null, true);
@@ -62,7 +62,7 @@ distritosRouter.post('/get-distrito', cors(corsOptions) as Handler, (req: Reques
           description: 'Hubo un error al procesar tu información.'
         };
 
-        if (!isProduction) {
+        if (isDebugging) {
           error.errorInfo = `${err}`;
         }
 
