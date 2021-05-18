@@ -9,11 +9,13 @@ import session, { SessionOptions } from 'express-session';
 import rateLimit from 'express-rate-limit';
 import compression from 'compression';
 import pgStore from 'connect-pg-simple';
+import cors from 'cors';
 
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT;
 const isProduction = process.env.NODE_ENV === 'production';
+const isDebugging = process.env.DEBUG === 'true';
 
 // Routes
 import pingRouter from './routes/ping/ping';
@@ -34,6 +36,19 @@ const limiter = rateLimit({
 });
 
 app.use(limiter);
+
+const accessList = ['https://latitud312.com/', 'https://latitud312-quiz.vercel.app/'];
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (accessList.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  }
+};
+
+app.use(cors(!isDebugging && !isProduction ? corsOptions : {}));
 
 // Cookies
 const sess: SessionOptions = {
