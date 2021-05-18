@@ -2,7 +2,7 @@
   "name": "latitud312-quiz-backend",
   "version": "1.0.0",
   "description": "Backend para el quiz de Latitud 312",
-  "main": "app.ts",
+  "main": "dist/app.js",
   "repository": "https://github.com/pmartiner/latitud312-quiz-backend.git",
   "author": "Pablo Martínez <martipev2@hotmail.com>",
   "license": "MIT",
