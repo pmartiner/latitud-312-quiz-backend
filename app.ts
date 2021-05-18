@@ -3,7 +3,6 @@ import express from 'express';
 import createError from 'http-errors';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
-import cors from 'cors';
 import helmet from 'helmet';
 import dotenv from 'dotenv';
 import session, { SessionOptions } from 'express-session';
@@ -27,22 +26,6 @@ app.use(helmet());
 // Body parser
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-
-// CORS
-const accessList = ['https://latitud312.com/', 'https://latitud312-quiz.vercel.app/'];
-const corsOptions = {
-  origin: isProduction
-    ? function (origin, callback) {
-      if (accessList.indexOf(origin) !== -1) {
-        callback(null, true);
-      } else {
-        callback(new Error('Not allowed by CORS'));
-      }
-    }
-    : '*'
-};
-
-app.use(cors(corsOptions));
 
 // Limiter
 const limiter = rateLimit({

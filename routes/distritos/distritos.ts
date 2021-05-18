@@ -1,7 +1,8 @@
 // Bibliotecas
-import express, { Request, Response } from 'express';
+import express, { Handler, Request, Response } from 'express';
 import pgpInit, { PreparedStatement } from 'pg-promise';
 import dotenv from 'dotenv';
+import cors from 'cors';
 
 // Types
 import { GetDistritoRequest, GetDistritoResponse } from 'routes/distritos/types/distritos.types';
@@ -15,8 +16,21 @@ const isProduction = process.env.NODE_ENV === 'production';
 const distritosRouter = express.Router();
 const pgp = pgpInit();
 const db = pgp(isProduction ? process.env.DATABASE_URL as string : connectionString);
+const accessList = ['https://latitud312.com/', 'https://latitud312-quiz.vercel.app/'];
+const corsOptions = {
+  origin: isProduction
+    ? function (origin, callback) {
+      if (accessList.indexOf(origin) !== -1) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    }
+    : '*'
+};
 
-distritosRouter.post('/get-distrito', (req: Request, res: Response<GetDistritoResponse | BadRequestError>, next) => {
+
+distritosRouter.post('/get-distrito', cors(corsOptions) as Handler, (req: Request, res: Response<GetDistritoResponse | BadRequestError>, next) => {
   const request: GetDistritoRequest = req.body;
   const cpRegex = new RegExp('^\\d{5}$');
 
