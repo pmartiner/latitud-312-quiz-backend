@@ -1,7 +1,6 @@
 // Bibliotecas
 import express from 'express';
 import createError from 'http-errors';
-import path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import cors from 'cors';
@@ -93,7 +92,7 @@ app.use((err, req, res, next) => {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.send('<h1>Not Found</h1>');
 });
 
 app.listen(PORT, () => {
