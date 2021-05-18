@@ -9,6 +9,7 @@ import dotenv from 'dotenv';
 import session, { SessionOptions } from 'express-session';
 import rateLimit from 'express-rate-limit';
 import compression from 'compression';
+import pgStore from 'connect-pg-simple';
 
 dotenv.config();
 const app = express();
@@ -60,8 +61,10 @@ const sess: SessionOptions = {
 };
  
 if (isProduction) {
+  const store = new (pgStore(session))();
   app.set('trust proxy', 1); // trust first proxy
   if (sess.cookie) {
+    sess.store = store;
     sess.cookie.secure = true; // serve secure cookies
   }
 }
