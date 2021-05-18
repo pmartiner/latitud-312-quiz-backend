@@ -8,7 +8,7 @@
   "license": "MIT",
   "scripts": {
     "start:dev": "tsc -w & nodemon app.ts",
-    "start": "tsc --project ./&& node dist/app.js",
+    "start": "node dist/app.js",
     "build": "tsc --project ./"
   },
   "devDependencies": {
