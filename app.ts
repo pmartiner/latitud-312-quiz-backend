@@ -79,6 +79,9 @@ app.use(logger('dev'));
 app.use(cookieParser());
 
 // Routers
+app.get('/', function (req, res) {
+  res.send('<h1>Hecho con ❤️ por Pablo Martínez.</h1>');
+});
 app.use('/ping', pingRouter);
 app.use('/distritos', distritosRouter);
 
