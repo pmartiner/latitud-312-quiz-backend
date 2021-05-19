@@ -1,10 +1,11 @@
 // Bibliotecas
 import express, { Request, Response } from 'express';
 import pgpInit, { PreparedStatement } from 'pg-promise';
+import  { body } from 'express-validator';
 import dotenv from 'dotenv';
 
 // Types
-import { GetDistritoRequest, GetDistritoResponse } from 'routes/distritos/types/distritos.types';
+import { GetDiputadeRequest, GetDiputadeResponse } from 'routes/distritos/types/distritos.types';
 import { BadRequestError } from 'common/types/error';
 
 // .env
@@ -18,46 +19,62 @@ const pgp = pgpInit();
 const db = pgp(isProduction ? process.env.DATABASE_URL as string : connectionString);
 
 
-distritosRouter.post('/get-distrito', (req: Request, res: Response<GetDistritoResponse | BadRequestError>, next) => {
-  const request: GetDistritoRequest = req.body;
-  const cpRegex = new RegExp('^\\d{5}$');
+distritosRouter.post(
+  '/get-diputade', 
+  body('entidad').not().isEmpty().isLength({min: 0, max: 2}).trim().escape(),
+  body('seccion').not().isEmpty().isLength({min: 4, max: 4}).trim().escape(),
+  (req: Request, res: Response<GetDiputadeResponse | BadRequestError>, next) => {
+    const request: GetDiputadeRequest = req.body;
+    const seccionRegex = new RegExp('^\\d{4}$');
+    const entidadRegex = new RegExp('^\\d{2}$');
 
-  try {
-    if (!cpRegex.test(request.cp)) {
-      const error: BadRequestError = {
-        description: 'El formato del código postal es incorrecto.'
-      };
-
-      return res.status(400).json(error);
-    }
-
-    const query = {
-      name: 'get-distrito',
-      text: 'SELECT distrito FROM distritos_cp WHERE cp = $1',
-      values: [request.cp]
-    };
-    const PSQuery = new PreparedStatement(query);
-  
-    db.any(PSQuery)
-      .then(data => {
-        res.json({
-          data
-        });
-      })
-      .catch(err => {
+    try {
+      if (!seccionRegex.test(request.seccion)) {
         const error: BadRequestError = {
-          description: 'Hubo un error al procesar tu información.'
+          description: 'El formato de la sección es incorrecto.'
         };
 
-        if (isDebugging) {
-          error.errorInfo = `${err}`;
-        }
+        return res.status(400).json(error);
+      }
 
-        res.status(400).json(error);
-      });
-  } catch (err) {
-    next(err);
+      if (!entidadRegex.test(request.entidad)) {
+        const error: BadRequestError = {
+          description: 'El formato de la entidad es incorrecto.'
+        };
+
+        return res.status(400).json(error);
+      }
+
+      const query = {
+        name: 'get-distrito',
+        text: `SELECT *
+          FROM diputade d, distritos_seccion ds
+          WHERE d.num_distrito=ds.distrito AND seccion=$1 AND ds.entidad=d.num_entidad AND ds.entidad=$2;`,
+        values: [request.seccion, request.entidad]
+      };
+      const PSQuery = new PreparedStatement(query);
+    
+      db.one(PSQuery)
+        .then(data => {
+          res.json({
+            ...data
+          });
+        })
+        .catch(err => {
+          const error: BadRequestError = {
+            description: 'Hubo un error al procesar tu información. Por favor revise su información e intente de nuevo.'
+          };
+
+          if (isDebugging) {
+            error.errorInfo = `${err}`;
+          }
+
+          res.status(400).json(error);
+        });
+    } catch (err) {
+      next(err);
+    }
   }
-});
+);
 
 export default distritosRouter;
