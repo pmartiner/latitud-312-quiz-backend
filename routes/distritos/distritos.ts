@@ -21,8 +21,6 @@ const db = pgp(isProduction ? process.env.DATABASE_URL as string : connectionStr
 
 distritosRouter.post(
   '/get-diputade', 
-  body('entidad').not().isEmpty().isLength({min: 0, max: 2}).trim().escape(),
-  body('seccion').not().isEmpty().isLength({min: 4, max: 4}).trim().escape(),
   (req: Request, res: Response<GetDiputadeResponse | BadRequestError>, next) => {
     const request: GetDiputadeRequest = req.body;
     const seccionRegex = new RegExp('^\\d{4}$');
@@ -46,10 +44,27 @@ distritosRouter.post(
       }
 
       const query = {
-        name: 'get-distrito',
-        text: `SELECT *
-          FROM diputade d, distritos_seccion ds
-          WHERE d.num_distrito=ds.distrito AND seccion=$1 AND ds.entidad=d.num_entidad AND ds.entidad=$2;`,
+        name: 'get-diputade',
+        text: `select bancada_original,
+            nombre_diputade,
+            num_entidad,
+            d.distrito,
+            d.tipo,
+            id_legislativo,
+            bancada_actual,
+            reeleccion,
+            reeleccion_suplente,
+            licencia,
+            licencia_deceso,
+            nombre_suplente,
+            foto,
+            genero,
+            nombre_entidad,
+            municipio,
+            nombre_municipio,
+            seccion
+          from diputade d, distritos_seccion ds
+          where d.num_distrito=ds.distrito and seccion=$1 and ds.entidad=d.num_entidad and ds.entidad=$2`,
         values: [request.seccion, request.entidad]
       };
       const PSQuery = new PreparedStatement(query);
