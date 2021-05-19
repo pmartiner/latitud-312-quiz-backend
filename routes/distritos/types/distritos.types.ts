@@ -7,9 +7,7 @@ export type GetDiputadeRequest = {
 export type GetDiputadeResponse = {
   bancada_original: string;
   nombre_diputade: string;
-  entidad: string;
   num_entidad: number;
-  num_distrito: number;
   distrito: string;
   tipo: string;
   id_legislativo: number;
@@ -20,4 +18,9 @@ export type GetDiputadeResponse = {
   licencia_deceso: boolean;
   nombre_suplente: string;
   foto: string;
+  genero: string;
+  nombre_entidad: string;
+  municipio: number;
+  nombre_municipio: string;
+  seccion: number;
 }
