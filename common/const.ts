@@ -7,6 +7,7 @@ export const hasErrorHandler = (isDebugging: boolean, err: string, res: Response
   };
 
   if (isDebugging) {
+    console.log(err);
     error.errorInfo = err;
   }
 
@@ -17,8 +18,8 @@ export const hasRepeatedEmailErrorHandler = (isDebugging: boolean, err: string, 
   const error: BadRequestError = {
     description: 'Hubo un error al procesar tu información. Es posible que este correo ya exista en nuestra base de datos. Por favor revise su información e intente de nuevo.'
   };
-  
   if (isDebugging) {
+    console.log(err);
     error.errorInfo = err;
   }
   

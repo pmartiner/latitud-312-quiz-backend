@@ -48,6 +48,9 @@ respuestasRouter.post(
           hasErrorHandler(isDebugging, `${err}`, res);
         });
     } catch (err) {
+      if (isDebugging) {
+        console.log(err);
+      }
       next(err);
     }
   }
