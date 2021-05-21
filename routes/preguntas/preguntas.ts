@@ -24,7 +24,7 @@ preguntasRouter.get(
   (req: Request, res: Response<QuizQuestionsResponse | BadRequestError>, next) => {
     try {
       const query = {
-        name: 'get-diputade',
+        name: 'get-preguntas',
         text: 'SELECT * FROM preguntas_quiz;',
         values: []
       };
