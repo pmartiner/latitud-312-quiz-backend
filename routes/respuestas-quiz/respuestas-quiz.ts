@@ -25,16 +25,16 @@ respuestasRouter.post(
       const request: SetPreguntaRequest = req.body;
       const query = {
         name: 'set-respuesta',
-        text: 'INSERT INTO respuestas_usuarie_quiz(id_pregunta, respuesta, distrito_usuarie) VALUES($1, $2, $3);',
+        text: 'INSERT INTO respuestas_usuarie_quiz(id_pregunta, respuesta, distrito_usuarie) VALUES($1, $2, $3) RETURNING id_respuesta_usuarie;',
         values: [request.id_pregunta, request.respuesta, request.distrito_usuarie]
       };
       const PSQuery = new PreparedStatement(query);
           
-      db.any(PSQuery)
+      db.one(PSQuery)
         .then(data => {
           console.log(data);
           res.status(200).json({
-            data: true
+            data: data.id_respuesta_usuarie
           });
         })
         .catch(err => {

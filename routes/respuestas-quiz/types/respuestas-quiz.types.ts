@@ -5,5 +5,5 @@ export type SetPreguntaRequest = {
 }
 
 export type SetPreguntaResponse = {
-  data: boolean;
+  data: number;
 }

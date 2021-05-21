@@ -30,7 +30,7 @@ correosRouter.post(
       };
       const PSQuery = new PreparedStatement(query);
           
-      db.any(PSQuery)
+      db.one(PSQuery)
         .then(data => {
           console.log(data);
           res.status(200).json({
