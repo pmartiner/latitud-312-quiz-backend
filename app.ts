@@ -17,6 +17,9 @@ const PORT = process.env.PORT;
 const isProduction = process.env.NODE_ENV === 'production';
 const isDebugging = process.env.DEBUG === 'true';
 
+// DB
+import { db } from './db/db-connection';
+
 // Routes
 import pingRouter from './routes/ping/ping';
 import distritosRouter from './routes/distritos/distritos';
@@ -62,7 +65,9 @@ const sess: SessionOptions = {
 };
  
 if (isProduction) {
-  const store = new (pgStore(session))();
+  const store = new (pgStore(session))({
+    pgPromise: db
+  });
   app.set('trust proxy', 1); // trust first proxy
   if (sess.cookie) {
     sess.store = store;
