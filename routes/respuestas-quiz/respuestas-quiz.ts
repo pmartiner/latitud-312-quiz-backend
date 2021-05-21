@@ -21,7 +21,7 @@ const respuestasRouter = express.Router();
 const isDebugging = process.env.DEBUG === 'true';
 
 respuestasRouter.post(
-  '/set-respuesta',
+  '/set-respuestas',
   body('email').isEmail().normalizeEmail(),
   (req: Request, res: Response<Record<string, never> | BadRequestError>, next) => {
     try {
