@@ -5,5 +5,6 @@ export type SetPreguntaRequest = {
 }
 
 export type SetPreguntaResponse = {
-  data: number;
+  id_respuesta_usuarie: number;
 }
+  

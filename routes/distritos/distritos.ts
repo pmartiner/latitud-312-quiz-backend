@@ -10,6 +10,9 @@ import { BadRequestError } from 'common/types/error';
 // DB
 import { db } from '../../db/db-connection';
 
+// Handlers
+import { hasErrorHandler } from '../../common/const';
+
 // .env
 dotenv.config();
 
@@ -45,7 +48,7 @@ distritosRouter.post(
         text: `SELECT bancada_original,
             nombre_diputade,
             num_entidad,
-            d.distrito,
+            ds.distrito,
             d.tipo,
             id_legislativo,
             bancada_actual,
@@ -73,15 +76,7 @@ distritosRouter.post(
           });
         })
         .catch(err => {
-          const error: BadRequestError = {
-            description: 'Hubo un error al procesar tu información. Por favor revise su información e intente de nuevo.'
-          };
-
-          if (isDebugging) {
-            error.errorInfo = `${err}`;
-          }
-
-          res.status(400).json(error);
+          hasErrorHandler(isDebugging, `${err}`, res);
         });
     } catch (err) {
       next(err);

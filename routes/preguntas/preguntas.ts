@@ -10,6 +10,9 @@ import { BadRequestError } from 'common/types/error';
 // DB
 import { db } from '../../db/db-connection';
 
+// Handlers
+import { hasErrorHandler } from '../../common/const';
+
 // .env
 dotenv.config();
 
@@ -36,15 +39,7 @@ preguntasRouter.get(
           });
         })
         .catch(err => {
-          const error: BadRequestError = {
-            description: 'Hubo un error al procesar tu información. Por favor revise su información e intente de nuevo.'
-          };
-      
-          if (isDebugging) {
-            error.errorInfo = `${err}`;
-          }
-      
-          res.status(400).json(error);
+          hasErrorHandler(isDebugging, `${err}`, res);
         });
     } catch (err) {
       next(err);
