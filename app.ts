@@ -20,6 +20,9 @@ const isDebugging = process.env.DEBUG === 'true';
 // Routes
 import pingRouter from './routes/ping/ping';
 import distritosRouter from './routes/distritos/distritos';
+import preguntasRouter from './routes/preguntas/preguntas';
+import correosRouter from './routes/correos/correos';
+import respuestasRouter from './routes/respuestas-quiz/respuestas-quiz';
 
 // Helmet
 app.use(compression());
@@ -82,6 +85,9 @@ app.get('/', function (req, res) {
 });
 app.use('/ping', pingRouter);
 app.use('/distritos', distritosRouter);
+app.use('/preguntas', preguntasRouter);
+app.use('/correos', correosRouter);
+app.use('/respuestas', respuestasRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

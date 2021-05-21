@@ -1,23 +1,20 @@
 // Bibliotecas
 import express, { Request, Response } from 'express';
-import pgpInit, { PreparedStatement } from 'pg-promise';
-import  { body } from 'express-validator';
+import { PreparedStatement } from 'pg-promise';
 import dotenv from 'dotenv';
 
 // Types
 import { GetDiputadeRequest, GetDiputadeResponse } from 'routes/distritos/types/distritos.types';
 import { BadRequestError } from 'common/types/error';
 
+// DB
+import { db } from '../../db/db-connection';
+
 // .env
 dotenv.config();
 
-const connectionString = `postgresql://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_DATABASE}`;
-const isProduction = process.env.NODE_ENV === 'production';
-const isDebugging = process.env.DEBUG === 'true';
 const distritosRouter = express.Router();
-const pgp = pgpInit();
-const db = pgp(isProduction ? process.env.DATABASE_URL as string : connectionString);
-
+const isDebugging = process.env.DEBUG === 'true';
 
 distritosRouter.post(
   '/get-diputade', 
@@ -45,7 +42,7 @@ distritosRouter.post(
 
       const query = {
         name: 'get-diputade',
-        text: `select bancada_original,
+        text: `SELECT bancada_original,
             nombre_diputade,
             num_entidad,
             d.distrito,
@@ -63,8 +60,8 @@ distritosRouter.post(
             municipio,
             nombre_municipio,
             seccion
-          from diputade d, distritos_seccion ds
-          where d.num_distrito=ds.distrito and seccion=$1 and ds.entidad=d.num_entidad and ds.entidad=$2`,
+          FROM diputade d, distritos_seccion ds
+          WHERE d.num_distrito=ds.distrito and seccion=$1 and ds.entidad=d.num_entidad and ds.entidad=$2`,
         values: [request.seccion, request.entidad]
       };
       const PSQuery = new PreparedStatement(query);

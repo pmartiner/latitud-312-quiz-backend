@@ -34,9 +34,6 @@
         "routes/*": [
           "routes/*"
         ],
-        "types/*": [
-          "routes/distritos/types/*"
-        ],
         "views/*": [
           "views/*"
         ]
@@ -45,8 +42,8 @@
     "include": [
       "./*",
       "routes/**/*.ts",
+      "db/**/*.ts",
       "app.ts",
-      "routes/**/*",
     ],
     "exclude": [
         "./dist/**",
