@@ -54,6 +54,33 @@ CREATE TABLE correos_usuaries (
     UNIQUE(correo)
 );
 
+CREATE TABLE votaciones_partidos (
+    id_respuesta_partido    SERIAL          NOT NULL,
+    id_pregunta             INT             NOT NULL,
+    partido                 VARCHAR(255)    NOT NULL,
+    votacion                VARCHAR(255)    NOT NULL,
+    count                   INT             NOT NULL,
+    CONSTRAINT fk_pregunta
+        FOREIGN KEY(id_pregunta) 
+        REFERENCES preguntas_quiz(id_pregunta)
+            ON DELETE CASCADE
+);
+
+CREATE TABLE votaciones_diputade (
+    id_respuesta_diputade   SERIAL          NOT NULL,
+    id_pregunta             INT             NOT NULL,
+    votacion                VARCHAR(255)    NOT NULL,
+    id_legislativo          INT             NOT NULL,
+    CONSTRAINT fk_pregunta
+        FOREIGN KEY(id_pregunta) 
+        REFERENCES preguntas_quiz(id_pregunta)
+            ON DELETE CASCADE,
+    CONSTRAINT fk_diputade
+        FOREIGN KEY(id_legislativo) 
+        REFERENCES diputade(id_legislativo)
+            ON DELETE CASCADE
+);
+
 INSERT INTO preguntas_quiz(pregunta, pregunta_corta, input)
 VALUES ('¿Estás a favor o en contra de la creación de la Guardia Nacional en sustitución de la Policía Federal?', 'Creactión de la Guardia Nacional', '{"type":"radio","values":[{"label":"A favor ✅","value":"A favor"},{"label":"Indeciso/a 🤔","value":"Indecisión"},{"label":"En contra ❌","value":"En contra"}]}');
 INSERT INTO preguntas_quiz(pregunta, pregunta_corta, input)
