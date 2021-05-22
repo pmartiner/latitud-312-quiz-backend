@@ -82,7 +82,7 @@ CREATE TABLE votaciones_diputade (
 );
 
 INSERT INTO preguntas_quiz(pregunta, pregunta_corta, input)
-VALUES ('¿Estás a favor o en contra de la creación de la Guardia Nacional en sustitución de la Policía Federal?', 'Creactión de la Guardia Nacional', '{"type":"radio","values":[{"label":"A favor ✅","value":"A favor"},{"label":"Indeciso/a 🤔","value":"Indecisión"},{"label":"En contra ❌","value":"En contra"}]}');
+VALUES ('¿Estás a favor o en contra de la creación de la Guardia Nacional en sustitución de la Policía Federal?', 'Creación de la Guardia Nacional', '{"type":"radio","values":[{"label":"A favor ✅","value":"A favor"},{"label":"Indeciso/a 🤔","value":"Indecisión"},{"label":"En contra ❌","value":"En contra"}]}');
 INSERT INTO preguntas_quiz(pregunta, pregunta_corta, input)
 VALUES ('¿Estás a favor o en contra de la legalización de la marihuana para fines recreativos?', 'Legalización de la mariguana para fines recreativos', '{"type":"radio","values":[{"label":"A favor ✅","value":"A favor"},{"label":"Indeciso/a 🤔","value":"Indecisión"},{"label":"En contra ❌","value":"En contra"}]}');
 INSERT INTO preguntas_quiz(pregunta, pregunta_corta, input)

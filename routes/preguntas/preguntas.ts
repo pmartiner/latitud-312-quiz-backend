@@ -25,7 +25,7 @@ preguntasRouter.get(
     try {
       const query = {
         name: 'get-preguntas',
-        text: 'SELECT * FROM preguntas_quiz;',
+        text: 'SELECT * FROM preguntas_quiz ORDER BY id_pregunta ASC;',
         values: []
       };
       const PSQuery = new PreparedStatement(query);
