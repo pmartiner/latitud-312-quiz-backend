@@ -64,7 +64,7 @@ respuestasRouter.get(
     try {
       const id = req.params.id;
       const query = {
-        name: 'set-respuesta',
+        name: 'get-respuestas-diputade',
         text: 'SELECT id_pregunta, votacion FROM votaciones_diputade WHERE id_legislativo=$1 ORDER BY id_pregunta;',
         values: [id]
       };
