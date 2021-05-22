@@ -23,11 +23,10 @@ distritosRouter.post(
   '/get-diputade', 
   (req: Request, res: Response<GetDiputadeResponse | BadRequestError>, next) => {
     const request: GetDiputadeRequest = req.body;
-    const seccionRegex = new RegExp('^\\d{4}$');
     const entidadRegex = new RegExp('^\\d{2}$');
 
     try {
-      if (!seccionRegex.test(request.seccion)) {
+      if (!/^\d+$/.test(request.seccion) || request.seccion.length > 4 || request.seccion.length === 0) {
         const error: BadRequestError = {
           description: 'El formato de la sección es incorrecto.'
         };
