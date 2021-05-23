@@ -2,6 +2,8 @@ export type SetRespuestaRequest = {
   id_pregunta: number;
   respuesta: string | number | boolean | string[] | number[] | boolean[];
   distrito_usuarie: number;
+  seccion: string;
+  entidad: string;
 }
   
 export type Partidos = 'SP'

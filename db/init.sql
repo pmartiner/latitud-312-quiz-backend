@@ -42,6 +42,8 @@ CREATE TABLE respuestas_usuarie_quiz (
     id_pregunta             INT             NOT NULL,
     respuesta               VARCHAR(255)    NOT NULL,
     distrito_usuarie        INT             NOT NULL,
+    entidad                 INT             NOT NULL,
+    seccion                 INT             NOT NULL,
     CONSTRAINT fk_pregunta
         FOREIGN KEY(id_pregunta) 
         REFERENCES preguntas_quiz(id_pregunta)

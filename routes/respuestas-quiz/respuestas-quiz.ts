@@ -32,8 +32,8 @@ respuestasRouter.post(
         const insertQueries = request.map(rqst => {
           const query = {
             name: 'set-respuesta',
-            text: 'INSERT INTO respuestas_usuarie_quiz(id_pregunta, respuesta, distrito_usuarie) VALUES($1, $2, $3) RETURNING id_respuesta_usuarie;',
-            values: [rqst.id_pregunta, rqst.respuesta, rqst.distrito_usuarie]
+            text: 'INSERT INTO respuestas_usuarie_quiz(id_pregunta, respuesta, distrito_usuarie, seccion, entidad) VALUES($1, $2, $3, $4, $5) RETURNING id_respuesta_usuarie;',
+            values: [rqst.id_pregunta, rqst.respuesta, rqst.distrito_usuarie, rqst.seccion, rqst.entidad]
           };
           const PSQuery = new PreparedStatement(query);
 
