@@ -44,7 +44,7 @@ distritosRouter.post(
 
       const query = {
         name: 'get-diputade',
-        text: `SELECT bancada_original,
+        text: `SELECT DISTINCT bancada_original,
             nombre_diputade,
             num_entidad,
             ds.distrito,
