@@ -43,7 +43,7 @@ const limiter = rateLimit({
 
 app.use(limiter);
 
-const accessList = ['https://latitud312.com/', 'https://latitud312-quiz.vercel.app/'];
+const accessList = ['https://latitud312.com/', 'https://latitud312-quiz.vercel.app/', 'https://www.reeleccionocambio.com/', 'https://reeleccionocambio.com/'];
 const corsOptions = {
   origin: function (origin, callback) {
     if (accessList.indexOf(origin) !== -1) {
@@ -54,7 +54,7 @@ const corsOptions = {
   }
 };
 
-app.use(cors(!isDebugging && !isProduction ? corsOptions : {}));
+app.use(cors(!isDebugging ? corsOptions : {}));
 
 // Cookies
 const sess: SessionOptions = {
