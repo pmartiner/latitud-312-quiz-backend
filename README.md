@@ -2,7 +2,7 @@
 El objetivo de este proyecto fue ayudar a las personas a emitir un voto más informado en las elecciones de 2021. Este quiz de representación hace 10 preguntas a une usuarie sobre ciertos temas y, de acuerdo con sus respuestas, le desplegamos el porcentaje de representación de le diputade de su distrito a nivel federal. La página se encuentra en: https://www.reeleccionocambio.com/
 
 ## Tecnologías elegidas
-Este proyecto fue desarrollado para [Latitud 3°12](https://www.latitud312.com/) y con licencia GNU AGPLv3. El backend-end fue desarrollado con `node@14`, `express@4` y `postgresql@13`.
+Este proyecto fue desarrollado para [Latitud 3°12](https://www.latitud312.com/) y con licencia GNU AGPLv3. El backend-end fue desarrollado con `node@14`, `express@4` y `postgresql@13`. Hacía tiempo que no desarrollaba una aplicación full-stack, por lo que elegí estas tecnologías por su sencillez y la familiaridad que tengo con ellas.
 
 ## Uso y desarrollo
 Para poder probar el código localmente, es necesario contar con una versión de `node` LTS y `yarn`.
