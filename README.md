@@ -1,5 +1,5 @@
 # Back-end para el quiz de representación de diputades de Latitud 3°12
-El objetivo de este proyecto fue ayudar a las personas a emitir un voto más informado en las elecciones de 2021. Este quiz de representación hace 10 preguntas a une usuarie sobre ciertos temas y, de acuerdo con sus respuestas, le desplegamos el porcentaje de representación de le diputade de su distrito a nivel federal. La página se encuentra https://www.reeleccionocambio.com/
+El objetivo de este proyecto fue ayudar a las personas a emitir un voto más informado en las elecciones de 2021. Este quiz de representación hace 10 preguntas a une usuarie sobre ciertos temas y, de acuerdo con sus respuestas, le desplegamos el porcentaje de representación de le diputade de su distrito a nivel federal. La página se encuentra en: https://www.reeleccionocambio.com/
 
 ## Tecnologías elegidas
 Este proyecto fue desarrollado para [Latitud 3°12](https://www.latitud312.com/) y con licencia GNU AGPLv3. El backend-end fue desarrollado con `node@14`, `express@4` y `postgresql@13`.
