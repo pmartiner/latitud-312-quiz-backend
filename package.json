@@ -42,7 +42,7 @@
     "express-session": "^1.17.1",
     "express-validator": "^6.11.1",
     "helmet": "^6.0.0",
-    "http-errors": "^1.8.0",
+    "http-errors": "^2.0.0",
     "jade": "^1.11.0",
     "morgan": "^1.10.0",
     "pg-promise": "^10.10.2",
